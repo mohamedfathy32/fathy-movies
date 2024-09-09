@@ -1,0 +1,12 @@
+.active {
+  color: rgb(212, 175, 55) !important;
+}
+
+.toggle {
+  background-color: rgb(225, 230, 239) !important;
+}
+@media (max-width: 768px) {
+  .navbar-collapse {
+    flex-direction: column;
+  }
+}

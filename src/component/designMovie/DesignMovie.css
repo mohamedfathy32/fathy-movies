@@ -1,0 +1,9 @@
+.horizontal-scroll {
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+body[dir="rtl"] #mySwiper {
+  direction: rtl;
+}
