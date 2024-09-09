@@ -42,20 +42,20 @@ export default function MovieSearch() {
       <DesignMovies movies={movieSearch} />
       <div className="text-center py-5">
         <Button
-          className={`btn-btn-primary me-5 ${counter == 1 ? "d-none" : ""}`}
-          onClick={() => {
-            prev();
-          }}
-        >
-          prev
-        </Button>
-        <Button
           className="btn-btn-primary"
           onClick={() => {
             next();
           }}
         >
           next
+        </Button>
+        <Button
+          className={`btn-btn-primary me-5 ${counter == 1 ? "d-none" : ""}`}
+          onClick={() => {
+            prev();
+          }}
+        >
+          prev
         </Button>
       </div>
     </>

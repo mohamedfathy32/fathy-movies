@@ -74,7 +74,7 @@ export default function DesignMovies(props) {
                 <Card.Title className="text-light" style={{ height: 40 }}>
                   {title}
                 </Card.Title>
-                <Card.Text id="text-muted">{vote_average.toFixed(2)}</Card.Text>
+                <Card.Text id="text-muted">{vote_average?.toFixed(2)}</Card.Text>
                 <div className="d-flex justify-content-between align-items-center">
                   <button
                     className="btn px-lg-2 px-0"
