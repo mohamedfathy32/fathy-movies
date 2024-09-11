@@ -13,7 +13,15 @@ export default function DesignMovie(props) {
   const language = useSelector((state) => state.lang.language);
 
   const openTrailer = () => {
-    window.open(`https://www.youtube.com/watch?v=${props.video}`, "_blank");
+    if (props.video) {
+      window.open(`https://www.youtube.com/watch?v=${props.video}`, "_blank");
+    } else {
+      const message =
+        language === "en"
+          ? "The trailer is not available for this movie."
+          : "الإعلان غير متوفر لهذا الفيلم.";
+      alert(message);
+    }
   };
 
   return (
@@ -44,8 +52,10 @@ export default function DesignMovie(props) {
           <div className="d-flex flex-column flex-md-row align-items-md-center my-3">
             <h5 className="text-white fs-5 fs-md-4 mb-3 mb-md-0">
               {props.vote}
-            </h5> 
-            <span className="fs-6 fs-md-5 px-md-3">{language=='en'?'User Score':' تقيم المستخدم '}</span>
+            </h5>
+            <span className="fs-6 fs-md-5 px-md-3">
+              {language == "en" ? "User Score" : " تقيم المستخدم "}
+            </span>
             <div>
               <Button onClick={openTrailer} className="rounded-4 mt-2 mt-md-0">
                 <div className="d-flex justify-content-between align-items-center">
@@ -71,21 +81,25 @@ export default function DesignMovie(props) {
           <p className="fs-6 fs-md-5">{props.overview}</p>
           <hr style={{ backgroundColor: "#fff" }} />
 
-          <iframe
-            width="100%"
-            height="350px"
-            src={`https://www.youtube.com/embed/${props.video}`}
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
+          {props.video ? (
+            <iframe
+              width="100%"
+              height="350px"
+              src={`https://www.youtube.com/embed/${props.video}`}
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          ) : (
+            ""
+          )}
         </Col>
       </Row>
       <h2 className="fs-5 px-2 mt-4 text-white">
         {language == "en" ? "Top Billed Cast" : "أبرز الممثلين"}
       </h2>
       <Swiper
-      key={language}
+        key={language}
         breakpoints={{
           350: {
             slidesPerView: 2,

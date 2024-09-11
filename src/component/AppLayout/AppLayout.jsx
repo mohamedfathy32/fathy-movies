@@ -13,8 +13,7 @@ export default function AppLayout() {
     <>
       <div dir={dir}>
         <Header />
-        <div style={{backgroundColor:'black'}}>
-
+        <div style={{backgroundColor:'black' , minHeight:'100vh'}}>
         <Outlet />
         </div>
         <Footer />

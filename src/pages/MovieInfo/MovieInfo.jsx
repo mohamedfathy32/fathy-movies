@@ -35,11 +35,12 @@ export default function MovieInfo() {
       const trailer = videoData.data.results.find(
         (video) => video.type === "Trailer" && video.site === "YouTube"
       );
-      setVideo(trailer);
+      setVideo(trailer || {}); // Ensure trailer is either an object or empty object
       console.log(trailer);
     }
     fetchData();
   }, [id]);
+  
 
   useEffect(() => {
     async function fetchData() {
@@ -90,7 +91,7 @@ export default function MovieInfo() {
         overview={movie.overview}
         genres={movie.genres}
         runtime={convertMinutesToHours(movie.runtime)}
-        video={video.key}
+        video={video.key|| null}
         movieCast={cast}
       />
       {movieSuggestions.length != 0 ? (

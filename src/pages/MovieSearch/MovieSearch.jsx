@@ -1,63 +1,82 @@
-// import React from 'react'
 import { useParams } from "react-router-dom";
 import DesignMovies from "../../component/designMovies/DesignMovies";
 import axiosInstance from "../../axios/axiosInst";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
+import NotFound from "../../component/NotFoundTemp/NotFound";
 
 export default function MovieSearch() {
   const [movieSearch, setMovieSearch] = useState([]);
   const [counter, setCounter] = useState(1);
-  const { search } = new useParams();
-  console.log(search);
+  const [loading, setLoading] = useState(true); 
+  const { search } = useParams();
   const language = useSelector((state) => state.lang.language);
+
   useEffect(() => {
     async function fetchData() {
-      let res = await axiosInstance.get(`search/movie`, {
-        params: {
-          query: search,
-          language,
-          page: counter,
-        },
-      });
-      console.log(res.data);
+      setLoading(true); 
+      try {
+        let res = await axiosInstance.get(`search/movie`, {
+          params: {
+            query: search,
+            language,
+            page: counter,
+          },
+        });
 
-      setMovieSearch(res.data.results);
-      console.log(movieSearch);
+        setMovieSearch(res.data.results);
+        setLoading(false); 
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false); 
+      }
     }
     fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [language,counter]);
-
+  }, [language, counter, search]);
 
   const next = () => {
     setCounter(counter + 1);
   };
+
   const prev = () => {
     setCounter(counter - 1);
   };
+
   return (
     <>
-      <DesignMovies movies={movieSearch} />
-      <div className="text-center py-5">
-        <Button
-          className="btn-btn-primary"
-          onClick={() => {
-            next();
-          }}
-        >
-          next
-        </Button>
-        <Button
-          className={`btn-btn-primary me-5 ${counter == 1 ? "d-none" : ""}`}
-          onClick={() => {
-            prev();
-          }}
-        >
-          prev
-        </Button>
-      </div>
+      {loading ? (
+        <div className="d-flex justify-content-center">
+          <Button className="m-5">
+            <Spinner
+              component="span"
+              size="sm"
+              className="me-5"
+              aria-hidden="true"
+            />
+            Loading...
+          </Button>
+        </div>      ) : movieSearch.length === 0 ? (
+        <NotFound /> 
+      ) : (
+        <>
+          <DesignMovies movies={movieSearch} />
+          <div className="text-center py-5">
+            <Button
+              className="btn-btn-primary mx-4"
+              onClick={next}
+            >
+              next
+            </Button>
+            <Button
+              className={`btn-btn-primary me-5 ${counter === 1 ? "d-none" : ""}`}
+              onClick={prev}
+            >
+              prev
+            </Button>
+          </div>
+        </>
+      )}
     </>
   );
 }

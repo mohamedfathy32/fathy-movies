@@ -59,7 +59,7 @@ export default function Footer() {
               <FaTwitter className="fs-3 m-2 text-white" />
             </a>
             <a
-              href="https://wa.me/01094976357"
+              href="https://wa.me/+201094976357"
               target="_blank"
               className="ms-2 icon rounded-circle"
               style={{ backgroundColor: "#ff9800" }}
