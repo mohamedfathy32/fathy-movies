@@ -1,7 +1,8 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-export default function NotFound() {
+// eslint-disable-next-line react/prop-types
+export default function NotFound({page}) {
 
   const language = useSelector((state) => state.lang.language);
 
@@ -36,11 +37,11 @@ export default function NotFound() {
                     <div className="screen_out">
                       <div className="screen_out1">
                         <div className="screen">
-                          <span className="notfound_text">
+                          <span className="notfound_text" style={{padding:5}}>
                             {" "}
                             {language == "en"
-                              ? "Movie Not Found"
-                              : " غير موجود "}
+                              ? `${page} Not Found`
+                              : page == 'Page' ?'الصفحة غير موجوده':'الفيلم غير موجود'}
                           </span>
                         </div>
                       </div>

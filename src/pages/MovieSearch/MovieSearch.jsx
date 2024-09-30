@@ -57,7 +57,7 @@ export default function MovieSearch() {
             Loading...
           </Button>
         </div>      ) : movieSearch.length === 0 ? (
-        <NotFound /> 
+        <NotFound page='Movie' /> 
       ) : (
         <>
           <DesignMovies movies={movieSearch} />
